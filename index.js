@@ -63,6 +63,14 @@ app.put('/api/livros/:id', (req, res) => {
     res.json(livro);
 });
 
+app.delete('/api/livros/:id', (req, res) => {
+    const index = livros.findIndex(l => l.id === parseInt(req.params.id));
+    if (index === -1) return res.status(404).json({ erro: "Livro não encontrado" });
+
+    livros.splice(index, 1);
+    res.status(204).send(); // Sucesso sem conteúdo
+});
+
 app.listen(3000, () => {
     console.log('🚀 API de Livros rodando na porta 3000');
 });
