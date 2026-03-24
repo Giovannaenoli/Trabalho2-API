@@ -71,6 +71,9 @@ app.delete('/api/livros/:id', (req, res) => {
     res.status(204).send(); // Sucesso sem conteúdo
 });
 
-app.listen(3000, () => {
-    console.log('🚀 API de Livros rodando na porta 3000');
+// Rodando o servidor
+const PORT = 3000;
+
+app.listen(PORT, () => {
+    console.log(`🚀 API de Livros rodando na porta ${PORT}!`);
 });
