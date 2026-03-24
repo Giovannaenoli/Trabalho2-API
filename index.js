@@ -45,6 +45,24 @@ app.post('/api/livros', (req, res) => {
     res.status(201).json(novoLivro);
 });
 
+app.put('/api/livros/:id', (req, res) => {
+    const livro = livros.find(l => l.id === parseInt(req.params.id));
+    if (!livro) return res.status(404).json({ erro: "Livro não encontrado" });
+
+    const { titulo, autor, preco, genero } = req.body;
+    if (!titulo || !autor || !preco || !genero) {
+        return res.status(400).json({ erro: "Preencha todos os campos para o PUT" });
+    }
+
+    // Atualizando o objeto
+    livro.titulo = titulo;
+    livro.autor = autor;
+    livro.preco = preco;
+    livro.genero = genero;
+
+    res.json(livro);
+});
+
 app.listen(3000, () => {
     console.log('🚀 API de Livros rodando na porta 3000');
 });
