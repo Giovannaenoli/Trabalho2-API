@@ -32,6 +32,19 @@ app.get('/api/livros/:id', (req, res) => {
     res.json(livro);
 });
 
+app.post('/api/livros', (req, res) => {
+    const { titulo, autor, preco, genero } = req.body;
+
+    // Validando se tá faltando alguma coisa no body
+    if (!titulo || !autor || !preco || !genero) {
+        return res.status(400).json({ erro: "Campos obrigatórios faltando!" });
+    }
+
+    const novoLivro = { id: proximoId++, titulo, autor, preco, genero };
+    livros.push(novoLivro);
+    res.status(201).json(novoLivro);
+});
+
 app.listen(3000, () => {
     console.log('🚀 API de Livros rodando na porta 3000');
 });
